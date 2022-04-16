@@ -18,7 +18,7 @@ namespace WebsiteBanHang.Context
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Bạn phải nhập tên")]
-        
+        [Display(Name ="Tên Sản Phẩm")]
         public string Name { get; set; }
         public string Avatar { get; set; }
         public Nullable<int> CategoryId { get; set; }
