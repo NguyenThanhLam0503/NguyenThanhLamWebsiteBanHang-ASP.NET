@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebsiteBanHang.Context.Category_2119110250>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<p style="margin:10px;padding:10px;border:1px solid black;border-radius:5px;width:fit-content;color:white;background:#ff6a00;">
+    <a href="@Url.Action("Create","Category")">Thêm mới Danh mục</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Slug)
+        </th>
+
+        <th>Thao tác</th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CategoryName)
+    </td>
+    
+    <td><img src="~/Content/images/product/@item.Avatar" style="width:100px" class="img-fluid" /></td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Slug)
+    </td>
+ 
+    <td>
+        <div class="d-flex">
+            <a href="@Url.Action("Edit","Category",new {id= item.CategoryId })"> <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="@Url.Action("Detail","Category",new {id= item.CategoryId })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
+            <a href="@Url.Action("Delete","Category",new {id= item.CategoryId })"> <i class="fa-solid fa-trash"></i>  </a>
+
+        </div>
+    </td>
+</tr>
+}
+
+</table>

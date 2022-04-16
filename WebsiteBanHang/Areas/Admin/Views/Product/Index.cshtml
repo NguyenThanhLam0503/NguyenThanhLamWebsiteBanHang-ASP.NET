@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebsiteBanHang.Context.Product_2119110250>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<p style="margin:10px;padding:10px;border:1px solid black;border-radius:5px;width:fit-content;color:white;background:#ff6a00;">
+  <a href="@Url.Action("Create","Product")">Thêm mới Sản phẩm</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            <label class="control-label col">Tên Sản phẩm</label>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Avatar)*@
+            <label class="control-label col">Hình ảnh</label>
+        </th>
+
+        <th>
+            @*@Html.DisplayNameFor(model => model.Price)*@
+            <label class="control-label col">Giá</label>
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PriceDiscount)*@
+            <label class="control-label col">Giá khuyến mãi</label>
+        </th>
+        <th>
+Thao tác       </th>
+
+ 
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td><img src="~/Content/images/product/@item.Avatar" style="width:100px" class="img-fluid" /></td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PriceDiscount)
+    </td>
+
+    <td>
+        <div class="d-flex">
+            <a href="@Url.Action("Edit","Product",new {id= item.Id })"> <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="@Url.Action("Detail","Product",new {id= item.Id })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
+            <a href="@Url.Action("Delete","Product",new {id= item.Id })"> <i class="fa-solid fa-trash"></i>  </a>
+
+        </div>
+    </td>
+</tr>
+}
+
+</table>
