@@ -15,25 +15,28 @@ namespace WebsiteBanHang.Context
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web;
 
-    public partial class Category_2119110250
+    public partial class New_2119110250
     {
-        public int CategoryId { get; set; }
-        [Required(ErrorMessage = "Bạn phải nhập tên Danh mục")]
-        [Display(Name = "Tên Danh mục")]
-        public string CategoryName { get; set; }
+        public int NewId { get; set; }
+        [Required(ErrorMessage = "Bạn phải nhập tên")]
+        [Display(Name = "Tên Tin tức")]
+        public string NewName { get; set; }
         [Display(Name = "Hình ảnh")]
         public string Avatar { get; set; }
-        public string Slug { get; set; }
+        [Display(Name = "Mô tả")]
+        public string ShoetDes { get; set; }
+        [Display(Name = "Chi tiết")]
+        public string FullDescription { get; set; }
+        [Display(Name = "Xoá bài viết")]
+        public Nullable<bool> Delete { get; set; }
         [Display(Name = "Hiện trên Trang chủ")]
         public Nullable<bool> ShowOnHomePage { get; set; }
         [Display(Name = "Thứ tự hiển thị")]
         public Nullable<int> DisPlayOrder { get; set; }
         [Display(Name = "Ngày tạo")]
-        public Nullable<System.DateTime> CreatedOnUtc { get; set; }
+        public Nullable<System.DateTime> CreateOnUtc { get; set; }
         [Display(Name = "Ngày cập nhật")]
-        public Nullable<System.DateTime> UpdatedOnUtc { get; set; }
-        [Display(Name = "Xoá Danh mục")]
-        public Nullable<bool> Deleted { get; set; }
+        public Nullable<System.DateTime> UpdateOnUtc { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageUpLoad { get; set; }
     }

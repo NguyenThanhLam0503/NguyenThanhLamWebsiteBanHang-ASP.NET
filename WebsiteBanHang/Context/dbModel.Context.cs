@@ -27,7 +27,9 @@ namespace WebsiteBanHang.Context
     
         public virtual DbSet<Brand_2119110250> Brand_2119110250 { get; set; }
         public virtual DbSet<Category_2119110250> Category_2119110250 { get; set; }
+        public virtual DbSet<New_2119110250> New_2119110250 { get; set; }
         public virtual DbSet<Order_2119110250> Order_2119110250 { get; set; }
+        public virtual DbSet<OrderDetail_2119110250> OrderDetail_2119110250 { get; set; }
         public virtual DbSet<Product_2119110250> Product_2119110250 { get; set; }
         public virtual DbSet<User_2119110250> User_2119110250 { get; set; }
     }

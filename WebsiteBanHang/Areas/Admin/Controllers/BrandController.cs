@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -13,10 +14,33 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
     {
         WebsiteASPEntities objWebsiteASPEntities = new WebsiteASPEntities();
         // GET: Admin/Category
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, string currentFilter, int? page)
         {
-            var lstBrand = objWebsiteASPEntities.Brand_2119110250.ToList();
-            return View(lstBrand);
+            var listBrand = new List<Brand_2119110250>();
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                //lấy ds sản phẩm theo từ khoá tìm kiếm
+                listBrand = objWebsiteASPEntities.Brand_2119110250.Where(x => x.BrandName.Contains(SearchString) && x.Deleted == false).ToList();
+            }
+            else
+            {
+                //lấy ds sản phẩm trong bảng product
+                listBrand = objWebsiteASPEntities.Brand_2119110250.Where(x => x.Deleted == false).ToList();
+            }
+            ViewBag.CurrentFilter = SearchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            //Sắp xếp sp theo id sản phẩm, sp mới đc đưa lên đầu
+            listBrand = listBrand.OrderByDescending(x => x.BrandId).ToList();
+            return View(listBrand.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult Create()
@@ -58,18 +82,22 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Brand_2119110250 objBrand)
         {
-            //this.LoadData();
-            if (objBrand.ImageUpLoad != null)
+            if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(objBrand.ImageUpLoad.FileName);
-                string extension = Path.GetExtension(objBrand.ImageUpLoad.FileName);
-                fileName = fileName + extension;
-                objBrand.Avatar = fileName;
-                objBrand.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+                //this.LoadData();
+                if (objBrand.ImageUpLoad != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(objBrand.ImageUpLoad.FileName);
+                    string extension = Path.GetExtension(objBrand.ImageUpLoad.FileName);
+                    fileName = fileName + extension;
+                    objBrand.Avatar = fileName;
+                    objBrand.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+                }
+                objWebsiteASPEntities.Entry(objBrand).State = EntityState.Modified;
+                objWebsiteASPEntities.SaveChanges();
+                return RedirectToAction("Index");
             }
-            objWebsiteASPEntities.Entry(objBrand).State = EntityState.Modified;
-            objWebsiteASPEntities.SaveChanges();
-            return RedirectToAction("Index");
+            return View(objBrand);
         }
         [ValidateInput(false)]
         [HttpPost]

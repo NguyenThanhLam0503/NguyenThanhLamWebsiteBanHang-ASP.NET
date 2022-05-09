@@ -16,9 +16,9 @@
                     <nav class="nav-home-aside">
                         <h6 class="title-category"><a href="@Url.Action("Index","Category")">DANH MỤC</a> <i class="d-md-none icon fa fa-chevron-down"></i></h6>
                         <ul class="menu-category">
-                            @foreach (var item in Model.ListCategory)
+                            @foreach (var item in Model.ListCategory.Take(5))
                             {
-                                <li><a href="@Url.Action("CategoryList","Product",new {Id=item.CategoryId })">@item.CategoryName</a></li>
+                                <li><a href="@Url.Action("CategoryList","Product",new {Id=item.CategoryId})">@item.CategoryName</a></li>
                             }
 
 

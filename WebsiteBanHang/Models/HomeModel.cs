@@ -10,5 +10,6 @@ namespace WebsiteBanHang.Models
         public List<Product_2119110250> ListProduct { get; set; }
         public List<Category_2119110250> ListCategory { get; set; }
         public List<Brand_2119110250> ListBrand { get; set; }
+        public List<New_2119110250> ListNew { get; set; }
     }
 }

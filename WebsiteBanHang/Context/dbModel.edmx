@@ -33,6 +33,21 @@
           <Property Name="UpdatedOnUtc" Type="datetime" />
           <Property Name="Deleted" Type="bit" />
         </EntityType>
+        <EntityType Name="New_2119110250">
+          <Key>
+            <PropertyRef Name="NewId" />
+          </Key>
+          <Property Name="NewId" Type="int" Nullable="false" />
+          <Property Name="NewName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShoetDes" Type="nvarchar" MaxLength="200" />
+          <Property Name="FullDescription" Type="nvarchar(max)" />
+          <Property Name="Delete" Type="bit" />
+          <Property Name="ShowOnHomePage" Type="bit" />
+          <Property Name="DisPlayOrder" Type="int" />
+          <Property Name="CreateOnUtc" Type="datetime" />
+          <Property Name="UpdateOnUtc" Type="datetime" />
+        </EntityType>
         <EntityType Name="Order_2119110250">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -43,6 +58,15 @@
           <Property Name="Price" Type="float" />
           <Property Name="Statut" Type="int" />
           <Property Name="CreatedOnUtc" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrderDetail_2119110250">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product_2119110250">
           <Key>
@@ -79,7 +103,9 @@
         <EntityContainer Name="WebsiteASPModelStoreContainer">
           <EntitySet Name="Brand_2119110250" EntityType="Self.Brand_2119110250" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category_2119110250" EntityType="Self.Category_2119110250" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="New_2119110250" EntityType="Self.New_2119110250" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_2119110250" EntityType="Self.Order_2119110250" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail_2119110250" EntityType="Self.OrderDetail_2119110250" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_2119110250" EntityType="Self.Product_2119110250" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_2119110250" EntityType="Self.User_2119110250" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -116,6 +142,21 @@
           <Property Name="UpdatedOnUtc" Type="DateTime" Precision="3" />
           <Property Name="Deleted" Type="Boolean" />
         </EntityType>
+        <EntityType Name="New_2119110250">
+          <Key>
+            <PropertyRef Name="NewId" />
+          </Key>
+          <Property Name="NewId" Type="Int32" Nullable="false" />
+          <Property Name="NewName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShoetDes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Delete" Type="Boolean" />
+          <Property Name="ShowOnHomePage" Type="Boolean" />
+          <Property Name="DisPlayOrder" Type="Int32" />
+          <Property Name="CreateOnUtc" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOnUtc" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="Order_2119110250">
           <Key>
             <PropertyRef Name="OrderId" />
@@ -126,6 +167,15 @@
           <Property Name="Price" Type="Double" />
           <Property Name="Statut" Type="Int32" />
           <Property Name="CreatedOnUtc" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderDetail_2119110250">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Product_2119110250">
           <Key>
@@ -162,7 +212,9 @@
         <EntityContainer Name="WebsiteASPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Brand_2119110250" EntityType="Self.Brand_2119110250" />
           <EntitySet Name="Category_2119110250" EntityType="Self.Category_2119110250" />
+          <EntitySet Name="New_2119110250" EntityType="Self.New_2119110250" />
           <EntitySet Name="Order_2119110250" EntityType="Self.Order_2119110250" />
+          <EntitySet Name="OrderDetail_2119110250" EntityType="Self.OrderDetail_2119110250" />
           <EntitySet Name="Product_2119110250" EntityType="Self.Product_2119110250" />
           <EntitySet Name="User_2119110250" EntityType="Self.User_2119110250" />
         </EntityContainer>
@@ -202,6 +254,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="New_2119110250">
+            <EntityTypeMapping TypeName="WebsiteASPModel.New_2119110250">
+              <MappingFragment StoreEntitySet="New_2119110250">
+                <ScalarProperty Name="NewId" ColumnName="NewId" />
+                <ScalarProperty Name="NewName" ColumnName="NewName" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="ShoetDes" ColumnName="ShoetDes" />
+                <ScalarProperty Name="FullDescription" ColumnName="FullDescription" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="ShowOnHomePage" ColumnName="ShowOnHomePage" />
+                <ScalarProperty Name="DisPlayOrder" ColumnName="DisPlayOrder" />
+                <ScalarProperty Name="CreateOnUtc" ColumnName="CreateOnUtc" />
+                <ScalarProperty Name="UpdateOnUtc" ColumnName="UpdateOnUtc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Order_2119110250">
             <EntityTypeMapping TypeName="WebsiteASPModel.Order_2119110250">
               <MappingFragment StoreEntitySet="Order_2119110250">
@@ -211,6 +279,16 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Statut" ColumnName="Statut" />
                 <ScalarProperty Name="CreatedOnUtc" ColumnName="CreatedOnUtc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetail_2119110250">
+            <EntityTypeMapping TypeName="WebsiteASPModel.OrderDetail_2119110250">
+              <MappingFragment StoreEntitySet="OrderDetail_2119110250">
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

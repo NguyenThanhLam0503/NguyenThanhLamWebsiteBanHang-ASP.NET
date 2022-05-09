@@ -4,6 +4,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#addtocart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.Id = @Model.Id;
+            // lấy số lượng đặt hàng
+            if ($("#ipQuantity").val() < 1) {
+                alert("Số lượng không được nhỏ hơn 0")
+            }
+            else {
+                model.Quantity = $("#ipQuantity").val();
+            }
+           
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "Cart")',
+                data:  JSON.stringify(model) ,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Thêm giỏ hàng thành công!")
+                    $('#CartCount').text(@Session["count"] + 1);
+                },
+                error: function () {
+                    alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content bg-white padding-y">
@@ -60,7 +97,7 @@
 
                     <dl class="row">
                         <dt class="col-sm-3">Năm sản xuất</dt>
-                        <dd class="col-sm-9"><a >2022</a></dd>
+                        <dd class="col-sm-9"><a>2022</a></dd>
 
                         <dt class="col-sm-3">Đổi trả</dt>
                         <dd class="col-sm-9">7 ngày</dd>
@@ -72,27 +109,41 @@
                         <dd class="col-sm-9">Hàng có sẵn</dd>
                     </dl>
 
+
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-light" type="button" id="button-plus"> + </button>
-                                </div>
-                                <input type="text" class="form-control" value="1">
-                                <div class="input-group-append">
-                                    <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
-                                </div>
+                                <input type="text" id="ipQuantity" class="form-control" value="1">
                             </div>
                         </div> <!-- col.// -->
                         <div class="form-group col-md">
-                            <a href="#" class="btn  btn-primary">
-                                <i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
-                            </a>
-                            <a href="#" class="btn btn-light">
-                                <i class="fas fa-envelope"></i> <span class="text">Liên hệ với chúng tôi</span>
+                            <a href="@Url.Action("AddToCart","Cart", new { Id = Model.Id })" id="addtocart" class="btn  btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="text" h>Thêm vào giỏ hàng</span>
                             </a>
                         </div> <!-- col.// -->
-                    </div> <!-- row.// -->
+                    </div>
+                        <!--<div class="form-row  mt-4">
+            <div class="form-group col-md flex-grow-0">
+                <div class="input-group mb-3 input-spinner">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light" type="button" id="button-plus"> + </button>
+                    </div>
+                    <input type="text" class="form-control" value="1">
+                    <div class="input-group-append">
+                        <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+                        <!--<div class="form-group col-md">
+            <a href="#" class="btn  btn-primary">
+                <i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
+            </a>-->
+                        @*<a href="#" class="btn btn-light">
+                <i class="fas fa-envelope"></i> <span class="text">Liên hệ với chúng tôi</span>
+            </a>*@
+                    <!-- col.// -->
+                    <!--</div>--> <!-- row.// -->
 
                 </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
@@ -129,10 +180,10 @@
  
 
       
-                </div> <!-- box.// -->
-            </aside> <!-- col.// -->
-        </div> <!-- row.// -->
+                </div>  
+            </aside>  
+        </div>  
 
-    </div> <!-- container .//  -->
+    </div>   
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->

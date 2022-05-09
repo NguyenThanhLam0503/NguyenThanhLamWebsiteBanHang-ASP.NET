@@ -1,0 +1,90 @@
+﻿@model WebsiteBanHang.Context.New_2119110250
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết Tin tức</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NewName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avatar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShoetDes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShoetDes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullDescription)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.FullDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Delete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Delete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowOnHomePage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowOnHomePage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisPlayOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisPlayOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateOnUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateOnUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateOnUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateOnUtc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NewId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

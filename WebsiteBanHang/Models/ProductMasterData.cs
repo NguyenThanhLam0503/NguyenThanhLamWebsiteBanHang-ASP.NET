@@ -10,7 +10,7 @@ namespace WebsiteBanHang.Models
     public class ProductMasterData
     {
         public int Id { get; set; }
-        [Display(Name= "Tên")]
+        [Display(Name= "Tên Sản phẩm")]
         public string Name { get; set; }
         [Display(Name = "Hình ảnh")]
         public string Avatar { get; set; }
@@ -20,8 +20,11 @@ namespace WebsiteBanHang.Models
         public Nullable<int> BrandId { get; set; }
         [Display(Name = "Mô tả")]
         public string ShoetDes { get; set; }
+        [Display(Name = "Chi tiết")]
         public string FullDescription { get; set; }
+        [Display(Name = "Giá")]
         public Nullable<double> Price { get; set; }
+        [Display(Name = "Giá khuyến mãi")]
         public Nullable<double> PriceDiscount { get; set; }
         public Nullable<int> TypeId { get; set; }
         public string Slug { get; set; }

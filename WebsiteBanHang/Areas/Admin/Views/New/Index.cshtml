@@ -1,11 +1,13 @@
 ﻿@using PagedList
 @using PagedList.Mvc
-@model PagedList.IPagedList<WebsiteBanHang.Context.Brand_2119110250>
+@model PagedList.IPagedList<WebsiteBanHang.Context.New_2119110250>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Quản lý Bài viết</h2>
 
 
 <style>
@@ -185,29 +187,26 @@
         color: #ffa600;
     }*/
 </style>
-
-
 <p style="margin:10px;padding:10px;border:1px solid black;border-radius:5px;width:fit-content;color:white;background:#ff6a00;">
-    <a href="@Url.Action("Create","Brand")" style="color:white">Thêm mới Thương hiệu</a>
+    <a href="@Url.Action("Create","New")" style="color:white">Thêm Tin tức mới</a>
 </p>
-@using (Html.BeginForm("Index", "Brand", FormMethod.Get))
-{
-
-    <p>
-        Tìm tên Sản phẩm: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Tìm kiếm" />
-    </p>
-}
+<p>
+    Tìm tên Sản phẩm: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input type="submit" value="Tìm kiếm" />
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().BrandName)
+            @*@Html.DisplayNameFor(model => model.NewName)*@
+            <label class="control-label col">Tên Tin tức</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Avatar)
+            @*@Html.DisplayNameFor(model => model.Avatar)*@
+            <label class="control-label col">Hình ảnh</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Slug)
+            @*@Html.DisplayNameFor(model => model.ShoetDes)*@
+            <label class="control-label col">Mô tả</label>
         </th>
 
         <th>Thao tác</th>
@@ -217,20 +216,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BrandName)
+                @Html.DisplayFor(modelItem => item.NewName)
             </td>
-
             <td><img src="~/Content/images/product/@item.Avatar" style="width:100px" class="img-fluid" /></td>
-
             <td>
-                @Html.DisplayFor(modelItem => item.Slug)
+                @Html.DisplayFor(modelItem => item.ShoetDes)
             </td>
-
             <td>
                 <div class="d-flex">
-                    <a href="@Url.Action("Edit","Brand",new {id= item.BrandId })"> <i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="@Url.Action("Detail","Brand",new {id= item.BrandId })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
-                    <a href="@Url.Action("Delete","Brand",new {id= item.BrandId })"> <i class="fa-solid fa-trash"></i>  </a>
+                    <a href="@Url.Action("Edit","New",new {id= item.NewId })"> <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="@Url.Action("Detail","New",new {id= item.NewId })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
+                    <a href="@Url.Action("Delete","New",new {id= item.NewId })"> <i class="fa-solid fa-trash"></i>  </a>
 
                 </div>
             </td>

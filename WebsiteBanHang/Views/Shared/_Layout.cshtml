@@ -138,6 +138,7 @@
                                 <a href="@Url.Action("Index", "Cart")" class="widget-view">
                                     <div class="icon-area">
                                         <i class="fa fa-shopping-cart"></i>
+                                        <span class="notify" id="CartCount">@Session["count"]</span>
                                     </div>
                                     <small class="text"> Giỏ hàng </small>
                                 </a>
@@ -170,7 +171,7 @@
                                         <a href="@Url.Action("Index","Category")">Tất cả danh mục</a>
                                         <a href="@Url.Action("Index","Brand")">Danh sách thương hiệu</a>
                                         <a href="@Url.Action("Index","Cart")">Giỏ hàng</a>
-                                        <a href="page-detail-product.html">Product detail</a>
+                                        <a href="@Url.Action("Index","New")">Tin tức</a>
                                         <a href="page-content.html">Page content</a>
                                         <a href="page-user-login.html">Page login</a>
                                         <a href="page-user-register.html">Page register</a>
@@ -195,7 +196,7 @@
                             <a class="nav-link" href="@Url.Action("Index","Brand")">Thương hiệu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dịch vụ</a>
+                            <a class="nav-link" href="@Url.Action("Index","New")">Tin tức</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Liên hệ chúng tôi</a>

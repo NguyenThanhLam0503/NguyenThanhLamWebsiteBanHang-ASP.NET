@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WebsiteBanHang.Context;
 using WebsiteBanHang.Models;
 using static WebsiteBanHang.Common;
+using PagedList;
 
 namespace WebsiteBanHang.Areas.Admin.Controllers
 {
@@ -16,10 +17,33 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
     {
         WebsiteASPEntities objWebsiteASPEntities = new WebsiteASPEntities();
         // GET: Admin/Product
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, string currentFilter, int? page)
         {
-            var lstProduct = objWebsiteASPEntities.Product_2119110250.ToList();
-            return View(lstProduct);
+            var listProduct = new List<Product_2119110250>();
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                //lấy ds sản phẩm theo từ khoá tìm kiếm
+                listProduct = objWebsiteASPEntities.Product_2119110250.Where(x => x.Name.Contains(SearchString) && x.Deleted == false).ToList();
+            }
+            else
+            {
+                //lấy ds sản phẩm trong bảng product
+                listProduct = objWebsiteASPEntities.Product_2119110250.Where(x => x.Deleted == false).ToList();
+            }
+            ViewBag.CurrentFilter = SearchString;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            //Sắp xếp sp theo id sản phẩm, sp mới đc đưa lên đầu
+            listProduct = listProduct.OrderByDescending(x => x.Id).ToList();
+            return View(listProduct.ToPagedList(pageNumber,pageSize));
         }
         [HttpGet]
         public ActionResult Create()
@@ -61,19 +85,25 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
         public ActionResult Edit(Product_2119110250 objProduct)
         {
             this.LoadData();
-            if (objProduct.ImageUpLoad != null)
+            if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(objProduct.ImageUpLoad.FileName);
-                string extension = Path.GetExtension(objProduct.ImageUpLoad.FileName);
-                fileName = fileName + extension;
-                objProduct.Avatar = fileName;
-                objProduct.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+               
+                if (objProduct.ImageUpLoad != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(objProduct.ImageUpLoad.FileName);
+                    string extension = Path.GetExtension(objProduct.ImageUpLoad.FileName);
+                    fileName = fileName + extension;
+                    objProduct.Avatar = fileName;
+                    objProduct.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+                }
+                objProduct.DisPlayOrder = objProduct.Id;
+                objProduct.Slug = ConvertSlug.Str_Slug(objProduct.Name);
+                objWebsiteASPEntities.Entry(objProduct).State = EntityState.Modified;
+                objWebsiteASPEntities.SaveChanges();
+                return RedirectToAction("Index");
+
             }
-            objProduct.DisPlayOrder = objProduct.Id;
-            objProduct.Slug = ConvertSlug.Str_Slug(objProduct.Name);
-            objWebsiteASPEntities.Entry(objProduct).State = EntityState.Modified;
-            objWebsiteASPEntities.SaveChanges();
-            return RedirectToAction("Index");
+            return View(objProduct);
         }
         [ValidateInput(false)]
         [HttpPost]

@@ -24,6 +24,7 @@ namespace WebsiteBanHang.Controllers
             objHomeModel.ListProduct = lstPro;
             objHomeModel.ListCategory = lstCategory;
             objHomeModel.ListBrand = lstBrand;
+            objHomeModel.ListNew = objWebsiteASPEntities.New_2119110250.ToList();
             return View(objHomeModel);
         }
 

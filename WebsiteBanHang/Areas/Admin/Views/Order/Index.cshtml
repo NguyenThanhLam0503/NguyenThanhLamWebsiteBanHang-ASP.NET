@@ -1,0 +1,92 @@
+﻿@model WebsiteBanHang.Areas.Admin.Model.MasterOrder
+
+@{ ViewBag.Title = "Index";
+Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; }
+<h2>QUẢN LÝ ĐƠN HÀNG</h2>
+<style>
+    tr {
+        border: 1px solid #999999;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrder.FirstOrDefault().OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrder.FirstOrDefault().Name)
+
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrder.FirstOrDefault().Statut)
+        </th>
+
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model.ListOrder)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Statut)
+    </td>
+
+    <td>
+        <div class="d-flex">
+            <a href="@Url.Action("Edit","Order",new {id= item.OrderId })"> <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="@Url.Action("Detail","Order",new {id= item.OrderId })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
+            <a href="@Url.Action("Delete","Order",new {id= item.OrderId })"> <i class="fa-solid fa-trash"></i>  </a>
+
+        </div>
+    </td>
+</tr>}
+</table>
+<h2>CHI TIẾT ĐƠN HÀNG</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrderDetail.FirstOrDefault().OrderDetailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrderDetail.FirstOrDefault().OrderId)
+
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrderDetail.FirstOrDefault().ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListOrderDetail.FirstOrDefault().Quantity)
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model.ListOrderDetail)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderDetailId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderId)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        <div class="d-flex">
+            <a href="@Url.Action("Edit","OrderDetail",new {id= item.OrderDetailId })"> <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="@Url.Action("Detail","OrderDetail",new {id= item.OrderDetailId })" style="margin:0 7px;"> <i class="fa-solid fa-eye"></i></a>
+            <a href="@Url.Action("Delete","OrderDetail",new {id= item.OrderDetailId })"> <i class="fa-solid fa-trash"></i>  </a>
+
+        </div>
+    </td>
+</tr>}
+</table>

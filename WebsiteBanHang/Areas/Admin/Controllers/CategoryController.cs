@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,33 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
     {
         WebsiteASPEntities objWebsiteASPEntities = new WebsiteASPEntities();
         // GET: Admin/Category
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, string currentFilter, int? page)
         {
-            var lstCategory = objWebsiteASPEntities.Category_2119110250.ToList();
-            return View(lstCategory);
+            var listCategory = new List<Category_2119110250>();
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                //lấy ds sản phẩm theo từ khoá tìm kiếm
+                listCategory = objWebsiteASPEntities.Category_2119110250.Where(x => x.CategoryName.Contains(SearchString) && x.Deleted == false).ToList();
+            }
+            else
+            {
+                //lấy ds sản phẩm trong bảng product
+                listCategory = objWebsiteASPEntities.Category_2119110250.Where(x => x.Deleted == false).ToList();
+            }
+            ViewBag.CurrentFilter = SearchString;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            //Sắp xếp sp theo id sản phẩm, sp mới đc đưa lên đầu
+            listCategory = listCategory.OrderByDescending(x => x.CategoryId).ToList();
+            return View(listCategory.ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public ActionResult Create()
@@ -60,18 +84,22 @@ namespace WebsiteBanHang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Category_2119110250 objCategory)
         {
-            //this.LoadData();
-            if (objCategory.ImageUpLoad != null)
+            if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(objCategory.ImageUpLoad.FileName);
-                string extension = Path.GetExtension(objCategory.ImageUpLoad.FileName);
-                fileName = fileName + extension;
-                objCategory.Avatar = fileName;
-                objCategory.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+                //this.LoadData();
+                if (objCategory.ImageUpLoad != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(objCategory.ImageUpLoad.FileName);
+                    string extension = Path.GetExtension(objCategory.ImageUpLoad.FileName);
+                    fileName = fileName + extension;
+                    objCategory.Avatar = fileName;
+                    objCategory.ImageUpLoad.SaveAs(Path.Combine(Server.MapPath("~/Content/images/product/"), fileName));
+                }
+                objWebsiteASPEntities.Entry(objCategory).State = EntityState.Modified;
+                objWebsiteASPEntities.SaveChanges();
+                return RedirectToAction("Index");
             }
-            objWebsiteASPEntities.Entry(objCategory).State = EntityState.Modified;
-            objWebsiteASPEntities.SaveChanges();
-            return RedirectToAction("Index");
+            return View(objCategory);
         }
         [ValidateInput(false)]
         [HttpPost]
